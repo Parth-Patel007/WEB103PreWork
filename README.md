@@ -1,10 +1,10 @@
 # WEB103 Prework - ✨ Creatorverse
 
-Submitted by: ** Parth Patel**
+Submitted by: Parth Patel
 
 About this web app: **✨ Creatorverse is a content creator directory application that allows users to discover, view, add, edit, and delete content creators. Built with React and Supabase, it provides a modern interface for managing a collection of content creators with their channel information, descriptions, and images.**
 
-Time spent: ** 5 ** hours
+Time spent:  5  hours
 
 ## Required Features
 
