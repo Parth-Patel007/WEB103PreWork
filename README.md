@@ -1,16 +1,15 @@
 # WEB103 Prework - ✨ Creatorverse
 
-Submitted by: **👉🏿 [Your Name Here]**
+Submitted by: **👉🏿 Parth Patel**
 
 About this web app: **✨ Creatorverse is a content creator directory application that allows users to discover, view, add, edit, and delete content creators. Built with React and Supabase, it provides a modern interface for managing a collection of content creators with their channel information, descriptions, and images.**
 
-Time spent: **👉🏿 [X]** hours
+Time spent: ** 5 ** hours
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-<!-- 👉🏿👉🏿👉🏿 Make sure to check off completed functionality below -->
 - [x] **A logical component structure in React is used to create the frontend of the app**
 - [x] **At least five content creators are displayed on the homepage of the app**
 - [x] **Each content creator item includes their name, a link to their channel/page, and a short description of their content**
@@ -31,25 +30,14 @@ The following **additional** features are implemented:
 
 * [x] **React Router implementation for client-side routing with unique URLs for each page**
 * [x] **Environment variable configuration for secure API key management**
-* [x] **Responsive design with mobile-friendly layouts**
-* [x] **Loading states for better user experience**
-* [x] **Error handling for all CRUD operations**
-* [x] **Form validation for required fields**
-* [x] **Confirmation dialogs for delete operations**
 * [x] **Modern UI with dark theme and smooth animations**
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented required features:
 
-👉🏿<img src='[Your Video/GIF URL Here]' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+👉🏿<img src='Demo.mp4' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  👉🏿 [GIF tool here - e.g., Kap, ScreenToGif, Loom, etc.]
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
 
 ## Project Structure
 

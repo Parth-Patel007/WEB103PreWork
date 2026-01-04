@@ -25,7 +25,12 @@ const EditCreator = () => {
       console.error('Error fetching creator:', error);
       setFormData({ name: '', url: '', description: '', imageURL: '' });
     } else if (data) {
-      setFormData(data);
+      setFormData({
+        name: data.name || '',
+        url: data.url || '',
+        description: data.description || '',
+        imageURL: data.imageURL || ''
+      });
     }
     setLoading(false);
   };
@@ -38,10 +43,18 @@ const EditCreator = () => {
     }
     
     setSubmitting(true);
-    const { error } = await supabase.from('creators').update(formData).eq('id', parseInt(id));
+    
+    const dataToUpdate = {
+      name: formData.name.trim(),
+      url: formData.url.trim(),
+      description: formData.description.trim(),
+      ...(formData.imageURL.trim() && { imageURL: formData.imageURL.trim() })
+    };
+    
+    const { error } = await supabase.from('creators').update(dataToUpdate).eq('id', parseInt(id));
     if (error) {
       console.error('Error updating creator:', error);
-      alert('Error updating creator. Please try again.');
+      alert(`Error updating creator: ${error.message || 'Please try again.'}`);
       setSubmitting(false);
     } else {
       navigate(`/view/${id}`);
