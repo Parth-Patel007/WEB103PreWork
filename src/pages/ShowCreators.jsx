@@ -12,44 +12,46 @@ const ShowCreators = () => {
     fetchCreators();
   }, [location.key]);
 
-  const seedCreators = async () => {
-    const sampleCreators = [
+  const seedCreators = async (neededCount) => {
+    const allSampleCreators = [
       {
         name: 'Marques Brownlee',
         url: 'https://www.youtube.com/@mkbhd',
-        description: 'Tech reviewer known for in-depth analysis of the latest gadgets and technology.',
-        imageURL: ''
+        description: 'Tech reviewer known for in-depth analysis of the latest gadgets and technology.'
       },
       {
         name: 'Emma Chamberlain',
         url: 'https://www.youtube.com/@emmachamberlain',
-        description: 'Lifestyle vlogger sharing daily life, fashion, and coffee adventures.',
-        imageURL: ''
+        description: 'Lifestyle vlogger sharing daily life, fashion, and coffee adventures.'
       },
       {
         name: 'MrBeast',
         url: 'https://www.youtube.com/@MrBeast',
-        description: 'Philanthropist and content creator known for large-scale challenges and giveaways.',
-        imageURL: ''
+        description: 'Philanthropist and content creator known for large-scale challenges and giveaways.'
       },
       {
         name: 'Linus Tech Tips',
         url: 'https://www.youtube.com/@LinusTechTips',
-        description: 'Tech channel covering PC builds, reviews, and tech industry news.',
-        imageURL: ''
+        description: 'Tech channel covering PC builds, reviews, and tech industry news.'
       },
       {
         name: 'Zoe Sugg',
         url: 'https://www.youtube.com/@Zoella',
-        description: 'Beauty and lifestyle content creator sharing makeup tutorials and daily vlogs.',
-        imageURL: ''
+        description: 'Beauty and lifestyle content creator sharing makeup tutorials and daily vlogs.'
       }
     ];
     
-    const { error } = await supabase.from('creators').insert(sampleCreators);
+    // Only take the number of creators needed
+    const creatorsToInsert = allSampleCreators.slice(0, neededCount);
+    
+    const { data, error } = await supabase.from('creators').insert(creatorsToInsert).select();
     if (error) {
       console.error('Error seeding creators:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      return false;
     }
+    console.log('Successfully seeded creators:', data);
+    return true;
   };
 
   const fetchCreators = async () => {
@@ -63,15 +65,27 @@ const ShowCreators = () => {
     }
     
     const creatorsList = data || [];
+    console.log(`Current creators count: ${creatorsList.length}`);
     
     // Seed creators if there are fewer than 5
     if (creatorsList.length < 5) {
-      await seedCreators();
-      // Fetch again after seeding
-      const { data: newData, error: newError } = await supabase.from('creators').select();
-      if (!newError) {
-        setCreators(newData || []);
+      const neededCount = 5 - creatorsList.length;
+      console.log(`Seeding ${neededCount} creators...`);
+      const seeded = await seedCreators(neededCount);
+      if (seeded) {
+        // Small delay to ensure data is committed
+        await new Promise(resolve => setTimeout(resolve, 500));
+        // Fetch again after seeding
+        const { data: newData, error: newError } = await supabase.from('creators').select();
+        if (!newError && newData) {
+          console.log(`After seeding, creators count: ${newData.length}`);
+          setCreators(newData);
+        } else {
+          console.error('Error fetching after seed:', newError);
+          setCreators(creatorsList);
+        }
       } else {
+        console.error('Seeding failed');
         setCreators(creatorsList);
       }
     } else {
